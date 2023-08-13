@@ -266,3 +266,10 @@ En la siguiente clase conoceremos el paquete java.lang.
 ### Proyecto del aula anterior
 ¿Comenzando en esta etapa? Aquí puedes descargar los archivos del proyecto que hemos avanzado hasta el aula anterior.
 [Descargue los archivos](https://github.com/alura-es-cursos/1786-java-string-object/tree/clase-3 "Descargue los archivos") en Github o haga clic [aquí](https://github.com/alura-es-cursos/1786-java-string-object/archive/clase-3.zip "aquí") para descargarlos directamente.
+
+## Excepciones de java.lang
+PRÓXIMA ACTIVIDAD
+
+Cuando hablamos de excepciones hemos visto varias clases como Exception, RuntimeException, NullPointerException o ArithmeticException.
+
+Todas estas clases provienen del paquete java.lang, por lo que no fue necesario importarlas.
