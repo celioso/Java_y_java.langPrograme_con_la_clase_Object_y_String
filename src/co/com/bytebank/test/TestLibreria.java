@@ -5,7 +5,7 @@ import co.com.bytebank.modelo.CuentaCorriente;
 
 public class TestLibreria {
 	public static void main(String[] args) {
-		CuentaCorriente cuenta = new CuentaCorriente(12, 12);
+		CuentaCorriente cuenta = new Cuenta(12, 12);
 		cuenta.deposita(200.0);
 	}
 }
