@@ -273,3 +273,224 @@ PRÓXIMA ACTIVIDAD
 Cuando hablamos de excepciones hemos visto varias clases como Exception, RuntimeException, NullPointerException o ArithmeticException.
 
 Todas estas clases provienen del paquete java.lang, por lo que no fue necesario importarlas.
+
+## La interfaz CharSequence
+
+En los videos, es posible que hayas notado que algunos métodos de la clase String reciben una variable de tipo CharSequence. El tipo CharSequence es una interfaz que la propia clase String implementa (¡ya que String es una secuencia de caracteres!):
+
+`public class String implements CharSequence {`
+
+Cuando usamos la clase String, incluso podríamos declarar la variable con el tipo de interfaz, pero eso es raro de ver:
+
+`CharSequence seq = "es una secuencia de caracteres";`
+
+Lo interesante es que hay otras clases que también implementan la interfaz CharSequence. En otras palabras, hay otras clases que son secuencias además de caracteres además de la clase String. ¿Por qué?
+
+## La clase StringBuilder
+
+Vimos que la clase String es especial porque genera objetos inmutables. Esto se considera beneficioso cuando se piensa en el diseño, pero es malo cuando se piensa en el rendimiento (por eso debemos usar comillas dobles en la creación, ya que la JVM quiere solucionar los problemas de rendimiento con optimizaciones).
+
+Ahora hay un problema: imagina que necesitas crear un texto enorme y necesitas concatenar muchos String, por ejemplo:
+
+```java
+String texto = "Ayuda";
+texto = texto.concat("-");
+texto = texto.concat("me ");
+texto = texto.concat("subi ");
+texto = texto.concat("en el ");
+texto = texto.concat("omnibus ");
+texto = texto.concat("equivocado ");
+System.out.println(texto);
+```
+
+En este pequeño ejemplo ya hemos creado varios objetos, solo porque estamos concatenando algunos String. Esto no es bueno pensando en el rendimiento y para resolver esto existe la clase StringBuilder que ayuda a concatenar Strings de manera más eficiente.
+
+Vea el mismo código usando StringBuilder:
+
+```java
+StringBuilder builder = new StringBuilder("Ayuda");
+builder.append("-");
+builder.append("me ");
+builder.append("subi ");
+builder.append("en el ");
+builder.append("omnibus ");
+builder.append("equivocado ");
+String texto = builder.toString();
+System.out.println(texto);
+```
+StringBuilder es una clase común. Observe que usamos new para crear el objeto. Además, como el objeto es mutable, usamos la misma referencia, sin nuevas asignaciones.
+
+### La interfaz CharSequence
+Ahora lo bueno es que la clase StringBuilder también implementa la interfaz CharSequence:
+
+```java
+public class StringBuilder implements CharSequence {
+CharSequence cs = new StringBuilder("También es una secuencia de caracteres");
+```
+
+Esto significa que algunos métodos de la clase String saben cómo trabajar con StringBuilder, por ejemplo:
+
+```java
+String nombre = "ALURA";
+CharSequence cs = new StringBuilder("al");
+
+nombre = nombre.replace("AL", cs);
+
+System.out.println(nombre);
+```
+
+Viceversa, la clase StringBuilder tiene métodos que reciben el tipo CharSequence. De esa forma podemos trabajar de forma compatible con ambas clases, basándonos en una interfaz común.
+
+## Haga lo que hicimos en clase: String
+
+Conozcamos mejor la clase String del paquete java.lang.
+
+1. En el paquete br.com.bytebank.banco.test, cree una nueva clase TestString con el método *main*:
+
+```java
+package br.com.bytebank.banco.test;
+
+public class TestString {
+
+    public static void main(String[] args) {
+    }
+}
+```
+
+2. Dentro del método main, use una vez la sintaxis literal y la sintaxis normal para crear un objeto String:
+
+```java
+public static void main(String[] args) {
+
+    String nombre = "Mario"; //objeto literal
+    String otro = new String("Alura"); //En la práctica, siempre se prefiere sintaxis literal
+}
+```
+
+3. Practique el método de replace de la clase String. Recordando la inmutabilidad de String:
+
+```java
+public static void main(String[] args) {
+
+    String nombre = "Mario"; //objeto literal
+    String otro = new String("Alura"); //En la práctica, siempre se prefiere sintaxis literal
+
+    String nuevo = otro.replace("A", "a");
+
+    System.out.println(nuevo);
+}
+```
+
+4. Luego practique los métodos toUpperCase y toLowerCase para "aumentar" y "disminuir" las letras. Agregue el método principal:
+
+```java
+String nuevo = nombre.toLowerCase(); //también pruebe toUpperCase()
+System.out.println(nuevo);
+```
+
+5. Ahora pruebe los métodos charAt, indexOf y substring. Al final del método main, agregue:
+
+```java
+char c = nombre.charAt(3); //char i
+System.out.println(c);
+
+int pos = nombre.indexOf("rio");
+System.out.println(pos);
+
+String sub = nombre.substring(1);
+System.out.println(sub);
+```
+
+6. Ahora muestra todos los caracteres línea por línea usando un bucle for junto con los métodos length y charAt:
+
+```java
+for(int i = 0; i < nombre.length(); i++) {
+    System.out.println(nombre.charAt(i));
+} 
+```
+
+7. (Opcional) Practique un poco más y pruebe otros métodos de la clase String como isEmpty, trim, contains o split. Para hacer esto, verifique el javadoc:
+
+https://docs.oracle.com/javase/10/docs/api/java/lang/String.html.
+
+## Lo que aprendimos
+
+¿Qué aprendimos?
+
+En esta clase aprendimos y sabemos:
+
+- El package java.lang es el único paquete que no necesita ser importado
+- Tiene clases fundamentales que cualquier aplicación necesita, como la clase String y System
+- Los objetos de la clase String son inmutables y usamos una sintaxis literal para crear (objeto literal)
+- Cualquier método para cambiar la clase String devuelve un nuevo String que representa el cambio
+- La clase String es una CharSequence
+- Si necesitamos concatenar muchos String debemos usar la clase StringBuilder
+- Vimos varios métodos de la clase String como trim, charAt, contains, isEmpty, length, indexOf, replace
+En la siguiente clase veremos otra clase fundamental: java.lang.Object
+
+¿Comenzando en esta etapa? Aquí puedes descargar los archivos del proyecto que hemos avanzado hasta el aula anterior.
+
+[Descargue los archivos en Github](https://github.com/alura-es-cursos/1786-java-string-object/tree/clase-4 "Descargue los archivos en Github") o haga clic [aquí](https://github.com/alura-es-cursos/1786-java-string-object/archive/clase-4.zip "aquí") para descargarlos directamente.
+
+## Haga lo que hicimos en clase: toString()
+
+Vamos a sobreescribir el método toString() de la clase Object cambiando las clases de Cuentas.
+
+1. Abra la clase Cuenta y coloque el método toString con la información básica de la cuenta:
+
+```java
+@Override
+public String toString() {
+    return "Numero: " + this.numero + ", Agencia: " + this.agencia;
+}
+```
+
+2. Ejecute la clase de prueba para crear una CuentaCorriente y CuentaAhorros. La clase debería verse así:
+
+```java
+public class Test {
+
+    public static void main(String[] args) {
+
+        Object cc = new CuentaCorriente(22, 33);
+        Object cp = new CuentaCorriente(33, 22);
+
+        System.out.println(cc);
+        System.out.println(cp);
+    }
+}
+```
+
+La salida debe ser:
+
+```java
+Numero: 33, Agencia: 22 
+Numero: 22, Agencia: 33
+```
+
+3. Tenga en cuenta que no hay forma de distinguir por la salida si es una CuentaAhorros o una CuentaCorriente. Por tanto, vamos a sobreescribir el método en las clases hijas.
+
+Abra la clase CuentaAhorros y agregue:
+
+```java
+@Override
+public String toString() {
+    return "CuentaAhorros, " + super.toString();
+}
+```
+
+Y en la clase CuentaCorriente debe quedar:
+
+```java
+@Override
+public String toString() {
+    return "CuentaCorriente, " + super.toString();
+}
+```
+
+4. Ejecute nuevamente la clase Tes. La salida debe ser:
+
+```java
+CuentaCorriente, Numero: 33, Agencia: 22 
+CuentaAhorros, Numero: 22, Agencia: 33
+```
