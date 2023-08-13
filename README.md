@@ -70,3 +70,34 @@ de.adidas.lager
 ```
 
 Una vez organizadas nuestras clases, podemos revisar los modificadores de visibilidad que dependen de los paquetes. ¿Continuamos?
+
+## Modificadores de acceso
+¡Este es el momento de hacer lo que se vio en el video!
+
+1. En la clase **Cuenta**, elimine el modificador de acceso **public** y observe que su código en el **package** test deja de compilarse. Eliminando el modificador de acceso, transformamos la clase en **package private**, es decir, solo es visible dentro del paquete en el que está contenida.
+
+2. Creamos una nueva clase, usamos el nombre **CuentaEspecial**, seleccionamos la superclase (Cuenta), también creamos un package llamada **especial** para la clase creada.
+
+3. Tenemos un error de compilación, corríjalo implementando el constructor.
+
+4. En la clase **Cuenta**, elimine el modificador **protected** del atributo saldo, transformándolo en un **package private**.
+
+5. Tenga en cuenta que aunque la clase **CuentaEspecial** es una clase hija de **Cuenta**, no tiene acceso al atributo **package private**.
+
+6. Vuelva a poner el **protected** y verifique que su clase hija tenga acceso nuevamente al atributo de la clase madre, incluso si está en otro paquete.
+
+NOTA: ¡Solo es visible para los hijos!
+
+# Lo que aprendimos
+
+¿Qué aprendimos?
+
+En esta clase volvimos a hablar sobre visibilidad y aprendimos:
+
++ Hay 3 palabras clave relacionadas con la visibilidad: private, protected, public
++ Hay 4 niveles de visibilidad (de menor a mayor):
+ + `private` (visible solo en clase)
+ + `<<package private>>` (visible en la clase y en cualquier otro miembro del mismo paquete, que puede ser llamado de default)
+ + `protected` (visible en la clase y en cualquier otro miembro del mismo paquete y para cualquier hijo)
+ + `public` (visible en cualquier paquete)
++ Los modificadores pueden ser usados en la definición de la clase, atributo, constructor y método.
